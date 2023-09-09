@@ -5,9 +5,9 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-        "dev": "server.js",
+        "dev": "node --watch server.js",
         "test:connection": "vitest database/connection.test.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "vitest"
     },
     "repository": {
         "type": "git",
