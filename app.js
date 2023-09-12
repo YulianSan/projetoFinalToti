@@ -5,6 +5,8 @@ dotenv.config()
 
 const app = express()
 
+app.use(express.json())
+
 app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
