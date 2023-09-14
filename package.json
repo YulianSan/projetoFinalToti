@@ -6,8 +6,8 @@
     "type": "module",
     "scripts": {
         "dev": "node --watch server.js",
-        "migration": "FILE_SQLITE=$(grep FILE_SQLITE .env | cut -d '=' -f2) node database/migration.js",
-        "migration:seeder": "FILE_SQLITE=$(grep FILE_SQLITE .env | cut -d '=' -f2) node database/seeder.js",
+        "migration": "node database/migration.js",
+        "migration:seeder": "node database/seeder.js",
         "migration:reset": "echo '' > $(grep '^FILE_SQLITE' .env | cut -d '=' -f2)",
         "test:connection": "vitest database/connection.test.js",
         "test": "vitest"
