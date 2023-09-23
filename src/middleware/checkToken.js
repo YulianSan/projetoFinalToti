@@ -3,8 +3,6 @@ dotenv.config()
 
 import jwt from 'jsonwebtoken'
 import { User } from '../model/User.js'
-import { sequelize } from '../database/connection.js';
-import { QueryTypes } from 'sequelize';
 
 export const checkToken = async (req, res, next) => {
     const token = req.headers?.authorization?.replace('Bearer ', '');
