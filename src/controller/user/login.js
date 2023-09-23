@@ -18,7 +18,7 @@ export const login = async (req, res, next) => {
         }
     ))[0]
 
-    const passwordIsRight = await compare(password, user.password)
+    const passwordIsRight = await compare(password, user?.password ?? '')
 
     if(!passwordIsRight){
         next({
