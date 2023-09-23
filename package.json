@@ -5,7 +5,7 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-        "dev": "node --watch server.js",
+        "dev": "node --watch src/server.js",
         "migration": "node database/migration.js",
         "migration:seeder": "node database/seeder.js",
         "migration:reset": "echo '' > $(grep '^FILE_SQLITE' .env | cut -d '=' -f2)",

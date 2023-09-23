@@ -17,7 +17,12 @@ const validateCreateUser = zod.object({
     password: zod.string().min(1),
 })
 
-userRouter.post('/login', validate({ body: validateLogin }), login)
+userRouter.post(
+    '/login', 
+    validate({ body: validateLogin }), 
+    login
+)
+
 userRouter.post(
     '/user/create', 
     validate({ body: validateCreateUser }), 

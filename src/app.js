@@ -1,6 +1,8 @@
 import express from "express"
 import { router } from "./router/router.js"
+import { init } from "./database/init.js"
 
+init()
 const app = express()
 
 app.use(express.json())
