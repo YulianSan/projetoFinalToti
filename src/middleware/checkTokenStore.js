@@ -2,11 +2,9 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import jwt from 'jsonwebtoken'
-import { User } from '../model/User.js'
-import { sequelize } from '../database/connection.js';
-import { QueryTypes } from 'sequelize';
+import { Store } from '../model/Store.js';
 
-export const checkToken = async (req, res, next) => {
+export const checkTokenStore = async (req, res, next) => {
     const token = req.headers?.authorization?.replace('Bearer ', '');
    
     if(!token){
@@ -19,7 +17,7 @@ export const checkToken = async (req, res, next) => {
     let payload
 
     try { 
-        payload = jwt.verify(token, process.env.SECRET_KEY)
+        payload = jwt.verify(token, process.env.SECRET_KEY_STORE)
     }
     catch(e) {
         if (e instanceof jwt.JsonWebTokenError) {
@@ -35,6 +33,6 @@ export const checkToken = async (req, res, next) => {
         })
     }
 
-    req.user = await User.findOne({ where: { email: payload.email }})
+    req.user = await Store.findOne({ where: { email: payload.email }})
     next()
 }
