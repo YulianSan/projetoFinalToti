@@ -4,6 +4,7 @@ import { getProducts } from "../controller/product/getProducts.js";
 import { getProduct } from "../controller/product/getProduct.js";
 import { validate } from "../helpers/validate.js";
 import { z as zod } from "zod";
+import { checkToken } from "../middleware/checkToken.js";
 
 const productRouter = express.Router()
 
@@ -12,7 +13,7 @@ const validateCreateProduct = zod.object({
     price: zod.number().gt(0),
 })
 
-productRouter.get('/', getProducts)
+productRouter.get('/', checkToken, getProducts)
 productRouter.get('/:id', getProduct)
 productRouter.post('/', validate({ body: validateCreateProduct }), createProduct);
 
