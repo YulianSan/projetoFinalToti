@@ -6,7 +6,7 @@ import { sequelize } from '../database/connection.js';
 import { QueryTypes } from 'sequelize';
 
 export const checkToken = async (req, res, next) => {
-    const token = req.headers.authorization.replace('Bearer ', '');
+    const token = req.headers?.authorization?.replace('Bearer ', '');
    
     if(!token){
         return next({
