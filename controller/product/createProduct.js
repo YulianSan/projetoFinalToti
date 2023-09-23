@@ -1,16 +1,11 @@
-import { sequelize } from "../../database/connection.js"
-import { QueryTypes } from "sequelize"
+import { Product } from "../../model/Product.js"
 
 export const createProduct = async (req, res) => {
-    let { name, price, discount, store_id, image } = req.body
+    let { name, price, discount, storeId, image } = req.body
     
-    await sequelize.query(`
-        INSERT INTO products (name, price, discount, image, store_id) 
-            VALUES(:name, :price, :discount, :image, :store_id)`, 
-        { 
-            replacements: { name, price, discount, image, store_id },
-            type: QueryTypes.INSERT
-        })
+    const product = await Product.create({
+        name, price, discount, storeId, image
+    })
 
-    return res.status(201).json({ success: true })
+    return res.status(201).json({ success: true, id: product.id })
 }

@@ -1,10 +1,6 @@
-import { sequelize } from "../../database/connection.js"
-import { QueryTypes } from "sequelize"
+import { Product } from "../../model/Product.js"
 
 export const getProducts = async (req, res) => {
-    const products = await sequelize.query(`SELECT * FROM products`, { 
-        type: QueryTypes.SELECT 
-    })
-
+    const products = await Product.findAll() 
     return res.json({ success: true, data: products })
 }
