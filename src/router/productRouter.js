@@ -5,11 +5,15 @@ import { getProduct } from "../controller/product/getProduct.js";
 import { validate } from "../helpers/validate.js";
 import { z as zod } from "zod";
 import { checkToken } from "../middleware/checkToken.js";
+import { checkTokenStore } from "../middleware/checkTokenStore.js";
 
 const productRouter = express.Router()
 
 const validateGetProduct = zod.object({
-    id: zod.number().gte(1)
+    id: zod.preprocess(
+        (value) => Number(value),
+        zod.number().gte(1),
+    )
 })
 
 const validateCreateProduct = zod.object({
@@ -35,7 +39,7 @@ productRouter.get(
 
 productRouter.post(
     '/', 
-    checkToken, 
+    checkTokenStore, 
     validate({ body: validateCreateProduct }),
     createProduct
 );
