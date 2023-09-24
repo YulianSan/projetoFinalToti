@@ -7,9 +7,7 @@ const Store = sequelize.define('stores', {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
 }, {
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false,
+    indexes: [{ unique: true, fields: ['id'] }],
 })
 
 Store.hasMany(Product)
