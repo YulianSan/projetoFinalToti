@@ -6,8 +6,8 @@ import { Store } from '../model/Store.js';
 
 export const checkTokenStore = async (req, res, next) => {
     const token = req.headers?.authorization?.replace('Bearer ', '');
-   
-    if(!token){
+
+    if (!token) {
         return next({
             code: 401,
             message: 'No token provided.'
@@ -16,16 +16,16 @@ export const checkTokenStore = async (req, res, next) => {
 
     let payload
 
-    try { 
+    try {
         payload = jwt.verify(token, process.env.SECRET_KEY_STORE)
     }
-    catch(e) {
+    catch (e) {
         if (e instanceof jwt.JsonWebTokenError) {
             return next({
                 code: 401,
                 message: 'Invalid token'
             })
-		}
+        }
 
         return next({
             code: 400,
@@ -33,6 +33,6 @@ export const checkTokenStore = async (req, res, next) => {
         })
     }
 
-    req.user = await Store.findOne({ where: { email: payload.email }})
+    req.user = await Store.findOne({ where: { email: payload.email } })
     next()
 }
