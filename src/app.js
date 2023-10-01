@@ -5,14 +5,14 @@ import { init } from "./database/init.js"
 init()
 const app = express()
 
-app.use(express.json())
-
 app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
     next()
 })
+
+app.use(express.json())
 
 app.use(router)
 
