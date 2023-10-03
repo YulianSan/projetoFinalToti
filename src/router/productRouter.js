@@ -7,6 +7,7 @@ import { z as zod } from "zod";
 import { checkToken } from "../middleware/checkToken.js";
 import { checkTokenStore } from "../middleware/checkTokenStore.js";
 import { getProductsStore } from "../controller/product/getProductsStore.js";
+import { updateProduct } from "../controller/product/updateProduct.js";
 
 const productRouter = express.Router()
 
@@ -57,6 +58,13 @@ productRouter.post(
     checkTokenStore,
     validate({ body: validateCreateProduct }),
     createProduct
+);
+
+productRouter.put(
+    '/:id',
+    checkTokenStore,
+    validate({ body: validateCreateProduct }),
+    updateProduct
 );
 
 export { productRouter }

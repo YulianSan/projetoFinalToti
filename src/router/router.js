@@ -11,8 +11,8 @@ router.use('/store', storeRouter)
 
 router.use((err, req, res, next) => {
     return res.status(err?.code ?? 400)
-        .json({ 
-            success: false, 
+        .json({
+            success: false,
             message: err?.message ?? 'Error',
             details: err?.details ?? []
         })
