@@ -8,10 +8,18 @@ import { checkToken } from "../middleware/checkToken.js";
 import { checkTokenStore } from "../middleware/checkTokenStore.js";
 import { getProductsStore } from "../controller/product/getProductsStore.js";
 import { updateProduct } from "../controller/product/updateProduct.js";
+import { deleteProduct } from "../controller/product/deleteProduct.js";
 
 const productRouter = express.Router()
 
 const validateGetProduct = zod.object({
+    id: zod.preprocess(
+        (value) => Number(value),
+        zod.number().gte(1),
+    )
+})
+
+const validateDeleteProduct = zod.object({
     id: zod.preprocess(
         (value) => Number(value),
         zod.number().gte(1),
@@ -65,6 +73,13 @@ productRouter.put(
     checkTokenStore,
     validate({ body: validateCreateProduct }),
     updateProduct
+);
+
+productRouter.delete(
+    '/:id',
+    checkTokenStore,
+    validate({ params: validateDeleteProduct }),
+    deleteProduct
 );
 
 export { productRouter }
