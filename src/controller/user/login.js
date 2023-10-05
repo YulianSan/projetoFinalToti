@@ -12,25 +12,25 @@ export const login = async (req, res, next) => {
     const user = (await sequelize.query(`
         SELECT * FROM users 
             where email = :email
-        `, { 
-            type: QueryTypes.SELECT,
-            replacements: { email }
-        }
+        `, {
+        type: QueryTypes.SELECT,
+        replacements: { email }
+    }
     ))[0]
 
     const passwordIsRight = await compare(password, user?.password ?? '')
 
-    if(!passwordIsRight){
-        next({
+    if (!user || !passwordIsRight) {
+        return next({
             message: 'Access denied',
             code: 401,
         })
     }
 
-    const token = jwt.sign({ 
-        id: user.id, 
-        email: user.email, 
-        name: user.name 
+    const token = jwt.sign({
+        id: user.id,
+        email: user.email,
+        name: user.name
     }, process.env.SECRET_KEY)
 
     return res.json({ token, success: true })
